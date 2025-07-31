@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
+import { noteDetailApi } from "./api";
 
 /**
  * NoteView
@@ -21,16 +22,10 @@ export default function NoteView({ noteId, onBack, onEdit }) {
     if (!noteId || !token) return;
     setLoading(true);
     setError("");
-    fetch(`/api/notes/${noteId}/`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(async resp => {
-      if (!resp.ok) throw new Error("Failed to fetch note");
-      return await resp.json();
-    })
-    .then(setNote)
-    .catch(err => setError(err.message))
-    .finally(() => setLoading(false));
+    noteDetailApi(noteId, token)
+      .then(({ data }) => setNote(data))
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
   }, [noteId, token]);
 
   if (loading) return <div>Loading...</div>;
