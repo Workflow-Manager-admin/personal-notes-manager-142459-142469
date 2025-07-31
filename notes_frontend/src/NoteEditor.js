@@ -73,48 +73,88 @@ export default function NoteEditor({ note, onSave, onCancel }) {
   };
 
   return (
-    <div style={{background:"var(--bg-secondary)",borderRadius:10,padding:20,boxShadow:"0 2px 8px rgba(0,0,0,0.03)",minWidth:320, maxWidth:600}}>
+    <div
+      style={{
+        background: "var(--bg-secondary)",
+        borderRadius: 16,
+        padding: "30px 28px 25px 28px",
+        boxShadow: "var(--shadow)",
+        minWidth: 280,
+        maxWidth: 560,
+        marginTop: 12,
+        marginBottom: 18,
+      }}
+    >
       <form onSubmit={handleSubmit}>
-        <h2 style={{marginTop:0}}>{note && note.id ? "Edit Note" : "New Note"}</h2>
+        <h2 style={{ marginTop: 0, color: "var(--primary)" }}>
+          {note && note.id ? "Edit Note" : "New Note"}
+        </h2>
         <label>
-          Title:<br/>
+          Title:<br />
           <input
             name="title"
             value={form.title}
             onChange={handleChange}
             maxLength={200}
             required
-            style={{width:"100%",padding:8,margin:"6px 0 16px 0",fontSize:17,borderRadius:6,border:"1px solid var(--border-color)"}}
             autoFocus
+            style={{
+              width: "100%",
+              margin: "7px 0 14px 0",
+            }}
           />
         </label>
         <label>
-          Content:<br/>
+          Content:<br />
           <textarea
             name="content"
             value={form.content}
             onChange={handleChange}
             required
             minLength={1}
-            rows={8}
-            style={{width:"100%",padding:8,margin:"8px 0 18px 0",fontSize:16,borderRadius:6,border:"1px solid var(--border-color)"}}
+            rows={10}
+            style={{
+              width: "100%",
+              margin: "8px 0 16px 0",
+              resize: "vertical",
+              minHeight: 120
+            }}
           />
         </label>
-        {error && <div style={{color:"red",marginBottom:6}}>{error}</div>}
-        <button type="submit"
-                disabled={saving}
-                style={{
-                  background:"var(--button-bg)",color:"var(--button-text)",
-                  border:"none",borderRadius:7,padding:"8px 22px",fontWeight:500,cursor:"pointer",marginRight:10
-                }}>
-          {saving ? "Saving..." : (note && note.id ? "Save Changes" : "Create Note")}
+        {error && (
+          <div style={{ color: "#c62828", marginBottom: 8, fontWeight: 500 }}>
+            {error}
+          </div>
+        )}
+        <button
+          type="submit"
+          disabled={saving}
+          className="accent"
+          style={{
+            background: "var(--accent)",
+            color: "var(--secondary)",
+            fontWeight: 700,
+            padding: "9px 26px",
+            fontSize: "16.5px",
+            marginRight: 9,
+          }}
+        >
+          {saving ? "Saving..." : note && note.id ? "Save Changes" : "Create Note"}
         </button>
-        <button type="button"
-                disabled={saving}
-                onClick={onCancel}
-                style={{
-                  background:"none", color:"#424242", border:"1.2px solid #bbb", borderRadius:7, padding:"7.5px 18px",fontWeight:400, cursor:"pointer"
-                }}>
+        <button
+          type="button"
+          disabled={saving}
+          onClick={onCancel}
+          className="secondary"
+          style={{
+            padding: "9px 24px",
+            fontSize: "16.2px",
+            borderColor: "var(--primary)",
+            color: "var(--primary)",
+            background: "none",
+            fontWeight: 500,
+          }}
+        >
           Cancel
         </button>
       </form>

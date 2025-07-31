@@ -38,22 +38,71 @@ export default function NoteView({ noteId, onBack, onEdit }) {
   if (!note) return <div>Note not found.</div>;
 
   return (
-    <div style={{background:"var(--bg-secondary)",borderRadius:10,padding:20,boxShadow:"0 2px 8px rgba(0,0,0,0.03)",minWidth:320, maxWidth:600}}>
-      <button onClick={onBack} style={{marginBottom:12,background:"none",border:"none",color:"#1976d2",cursor:"pointer",fontWeight:500}}>&larr; Back</button>
-      <h2 style={{wordBreak:"break-word"}}>{note.title}</h2>
-      <div style={{whiteSpace:"pre-wrap",margin:"14px 0",textAlign:"left",lineHeight:"1.45",fontSize:"17px"}}>{note.content}</div>
-      <div style={{fontSize:"13px", color:"#888", margin:"16px 0 8px"}}>
-        <span>Created: {note.created_at ? new Date(note.created_at).toLocaleString() : "?"}</span>
-        <br/>
-        <span>Updated: {note.updated_at ? new Date(note.updated_at).toLocaleString() : "?"}</span>
+    <div
+      style={{
+        background: "var(--bg-secondary)",
+        borderRadius: 16,
+        padding: "30px 28px 25px 28px",
+        boxShadow: "var(--shadow)",
+        minWidth: 280,
+        maxWidth: 560,
+        marginTop: 14,
+        marginBottom: 15,
+        textAlign: "left"
+      }}
+    >
+      <button
+        onClick={onBack}
+        className="secondary"
+        style={{
+          marginBottom: 13,
+          background: "none",
+          color: "var(--primary)",
+          fontWeight: 600,
+          borderColor: "var(--primary)",
+          fontSize: "15.8px",
+          padding: "6px 18px"
+        }}
+      >
+        &larr; Back
+      </button>
+      <h2 style={{ wordBreak: "break-word", color: "var(--primary)", marginBottom: 0 }}>
+        {note.title}
+      </h2>
+      <div
+        style={{
+          whiteSpace: "pre-wrap",
+          margin: "16px 0 10px 0",
+          textAlign: "left",
+          lineHeight: "1.53",
+          fontSize: "17.5px",
+          color: "var(--text-primary)"
+        }}
+      >
+        {note.content}
+      </div>
+      <div style={{ fontSize: "13.5px", color: "var(--hint)", margin: "8px 0 14px" }}>
+        <span>
+          Created: {note.created_at ? new Date(note.created_at).toLocaleString() : "?"}
+        </span>
+        <br />
+        <span>
+          Updated: {note.updated_at ? new Date(note.updated_at).toLocaleString() : "?"}
+        </span>
       </div>
       <button
+        className="accent"
         style={{
-          background:"var(--button-bg)",
-          color:"var(--button-text)",border:"none",padding:"8px 18px",borderRadius:7,marginTop:8,fontWeight:600,cursor:"pointer"
+          background: "var(--accent)",
+          color: "var(--secondary)",
+          fontWeight: 700,
+          padding: "9px 26px",
+          fontSize: "16.5px",
         }}
         onClick={() => onEdit(note)}
-      >Edit</button>
+      >
+        Edit
+      </button>
     </div>
   );
 }

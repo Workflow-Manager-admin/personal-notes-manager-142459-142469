@@ -74,84 +74,122 @@ export default function NotesList({ onSelect, onEdit, onCreate, selectedNoteId }
   };
 
   return (
-    <div style={{
-      background: "var(--bg-secondary)",
-      padding: "20px",
-      borderRadius: 12,
-      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-      minWidth: 290,
-      maxWidth: 380
-    }}>
-      <h2 style={{ marginTop: 0 }}>My Notes</h2>
+    <div
+      style={{
+        background: "transparent",
+        padding: "24px 10px 16px 18px",
+        borderRadius: 0,
+        minWidth: 0,
+        width: "100%",
+        maxWidth: 350,
+        boxShadow: "none",
+      }}
+    >
+      <h2 style={{ marginTop: 5, marginBottom: 10, color: "var(--accent)", letterSpacing:"0.03em" }}>My Notes</h2>
       <div>
         <input
           type="text"
-          placeholder="Search notes (title/content)..."
+          placeholder="Search notes by title/content..."
           value={searchInput}
           onChange={e => setSearchInput(e.target.value)}
           style={{
-            width: "88%",
-            padding: 8,
-            borderRadius: 5,
-            border: "1px solid var(--border-color)",
-            marginBottom: 10,
-            marginRight: 6,
+            width: "76%",
+            padding: "8px 8px",
+            borderRadius: 6,
+            border: "1.1px solid var(--border-color)",
+            background: "var(--input-bg)",
+            marginBottom: 8,
+            marginRight: 7,
             fontSize: 15
           }}
           aria-label="Search notes"
         />
         <button
-          className="btn"
+          className="accent"
           onClick={onCreate}
           style={{
-            backgroundColor: "var(--button-bg)",
-            color: "var(--button-text)",
+            backgroundColor: "var(--accent)",
+            color: "var(--secondary)",
+            fontWeight: 700,
+            padding: "8px 16px",
+            fontSize: "15px",
+            borderRadius: "8px",
             border: "none",
-            borderRadius: 6,
-            padding: "7px 14px",
-            marginLeft: 4,
-            fontWeight: 500
+            marginLeft: 3,
           }}
-        >+ New</button>
+        >
+          + New
+        </button>
       </div>
       {loading
-        ? <div>Loading...</div>
+        ? <div style={{ margin: "19px 0" }}>Loading...</div>
         : error
-          ? <div style={{ color: "red" }}>{error}</div>
+          ? <div style={{ color: "#e53935", margin: "11px 0" }}>{error}</div>
           : notes.length === 0
-            ? <div style={{ color: "#888", margin: "18px 0" }}>No notes found.</div>
+            ? <div style={{ color: "var(--hint)", margin: "22px 0" }}>No notes found.</div>
             : (
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, marginTop: 10 }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, marginTop: 13 }}>
                 {notes.map(note => (
-                  <li key={note.id}
+                  <li
+                    key={note.id}
                     style={{
-                      background: selectedNoteId === note.id ? "var(--bg-primary)" : "transparent",
-                      borderRadius: 6,
-                      marginBottom: 8,
-                      boxShadow: selectedNoteId === note.id ? "0 0 0 1.5px var(--button-bg)" : "none",
-                      padding: "7px 4px 7px 10px",
+                      background: selectedNoteId === note.id ? "#e3f2fd" : "transparent",
+                      borderRadius: 7,
+                      marginBottom: 7,
+                      boxShadow: selectedNoteId === note.id ? "0 0 0 2px var(--primary)" : "none",
+                      padding: "7px 5px 7px 12px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "space-between"
-                    }}>
+                      justifyContent: "space-between",
+                      cursor: "pointer"
+                    }}
+                  >
                     <span
-                      style={{ flexGrow: 1, cursor: "pointer", fontWeight: 500 }}
+                      style={{
+                        flexGrow: 1,
+                        fontWeight: selectedNoteId === note.id ? 700 : 500,
+                        color: selectedNoteId === note.id ? "var(--primary)" : "#fffde7",
+                        letterSpacing:"0.01em"
+                      }}
                       title={note.title}
                       onClick={() => onSelect && onSelect(note)}
-                    >{note.title.length > 32 ? note.title.slice(0, 32) + '…' : note.title}</span>
+                    >
+                      {note.title.length > 32 ? note.title.slice(0, 32) + '…' : note.title}
+                    </span>
                     <span style={{ display: "inline-flex", gap: 2 }}>
                       <button
-                        style={{ marginLeft: 8, fontSize: 14, border: "none", background: "transparent", cursor: "pointer", color: "#2196F3" }}
+                        style={{
+                          marginLeft: 8,
+                          fontSize: "15px",
+                          border: "none",
+                          background: "transparent",
+                          cursor: "pointer",
+                          color: "var(--primary)"
+                        }}
                         title="View"
                         onClick={() => onSelect && onSelect(note)}
                       >👁</button>
                       <button
-                        style={{ marginLeft: 0, fontSize: 14, border: "none", background: "transparent", cursor: "pointer", color: "#FF9800" }}
+                        style={{
+                          marginLeft: 0,
+                          fontSize: "15px",
+                          border: "none",
+                          background: "transparent",
+                          cursor: "pointer",
+                          color: "var(--accent)"
+                        }}
                         title="Edit"
                         onClick={() => onEdit && onEdit(note)}
                       >✏️</button>
                       <button
-                        style={{ marginLeft: 0, fontSize: 14, border: "none", background: "transparent", cursor: "pointer", color: "#f44336" }}
+                        style={{
+                          marginLeft: 0,
+                          fontSize: "15px",
+                          border: "none",
+                          background: "transparent",
+                          cursor: "pointer",
+                          color: "#e53935"
+                        }}
                         title="Delete"
                         onClick={() => handleDelete(note.id)}
                       >🗑️</button>
